@@ -5,10 +5,12 @@ import java.util.List;
 
 public class Album {
     private String title;
+    private String Artistname;
     private Date releaseDate;
 
-    public Album(){
-
+    public Album(String title,String Artistname){
+           this.title=title;
+           this.Artistname=Artistname;
     }
 
     public Album(String title){

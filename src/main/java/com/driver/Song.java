@@ -4,8 +4,11 @@ public class Song {
     private String title;
     private int length;
     private int likes;
+    private String mobile;
 
-    public Song(){
+    public Song(String title,String mobile){
+        this.title=title;
+        this.mobile=mobile;
 
     }
 

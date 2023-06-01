@@ -3,8 +3,8 @@ package com.driver;
 import java.util.List;
 
 public class Artist {
-    private String name;
-    private int likes;
+    private static String name;
+    private static int likes;
 
     public Artist(){
 
@@ -15,7 +15,7 @@ public class Artist {
         this.likes = 0;
     }
 
-    public String getName() {
+    public static String getName() {
         return name;
     }
 
@@ -23,7 +23,7 @@ public class Artist {
         this.name = name;
     }
 
-    public int getLikes() {
+    public static int getLikes() {
         return likes;
     }
 
