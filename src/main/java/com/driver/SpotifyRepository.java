@@ -3,9 +3,7 @@ package com.driver;
 import java.util.*;
 
 import org.springframework.stereotype.Repository;
-import com.driver.Playlist;
 
-import static com.driver.Artist.getName;
 
 @Repository
 public class SpotifyRepository {
@@ -23,7 +21,7 @@ public class SpotifyRepository {
     public List<Album> albums;
     public List<Artist> artists;
 
-    public SpotifyRepository(){
+    public SpotifyRepository() {
         //To avoid hitting apis multiple times, initialize all the hashmaps here with some dummy data
         artistAlbumMap = new HashMap<>();
         albumSongMap = new HashMap<>();
@@ -41,8 +39,9 @@ public class SpotifyRepository {
     }
 
     public User createUser(String name, String mobile) {
-        users.add(new User(name,mobile));
-        return new User(name,mobile);
+        User user=new User(name,mobile);
+        users.add(user);
+        return user;
     }
 
     public Artist createArtist(String name) {
@@ -51,47 +50,71 @@ public class SpotifyRepository {
     }
 
     public Album createAlbum(String title, String artistName) {
-        albums.add(new Album(title,artistName));
-        return new Album(title,artistName);
+        albums.add(new Album(title, artistName));
+        return new Album(title, artistName);
     }
 
-    public Song createSong(String title, String albumName, int length) throws Exception{
-        songs.add(new Song(albumName,length));
-        return new Song(albumName,length);
+    public Song createSong(String title, String albumName, int length) throws Exception {
+        if(Album.getTitle().equalsIgnoreCase(albumName)){
+            throw new Exception("album not found");
+        }
+        songs.add(new Song(title,albumName, length));
+        return new Song(title,albumName, length);
     }
 
     public Playlist createPlaylistOnLength(String mobile, String title, int length) throws Exception {
-        playlists.add(new Playlist(mobile,title,length));
-        return new Playlist(mobile,title,length);
+        playlists.add(new Playlist(mobile, title, String.valueOf(length)));
+        return new Playlist(mobile, title, String.valueOf(length));
 
 
     }
 
     public Playlist createPlaylistOnName(String mobile, String title, List<String> songTitles) throws Exception {
-        playlists.add(new Playlist(mobile,title,songTitles));
-        return new Playlist(mobile,title,songTitles);
+        playlists.add(new Playlist(mobile, title, songTitles));
+        return new Playlist(mobile, title, songTitles);
 
     }
-
+    Playlist playlistName;
     public Playlist findPlaylist(String mobile, String playlistTitle) throws Exception {
-        playlists.contains(new Playlist(mobile,playlistTitle));
-        return new Playlist(mobile,playlistTitle);
-
+        int count=0;
+        playlistName=new Playlist(mobile,playlistTitle);
+        for(int i=0;i< playlists.size();i++){
+            if (playlists.contains(playlistName)){
+                count=i;
+            }
+        }
+        return playlists.get(count);
     }
 
+
+    Song songLiked;
+    HashMap<Song,Integer>LikedSong=new HashMap<>();
+    int max=0;
     public Song likeSong(String mobile, String songTitle) throws Exception {
-        songLikeMap.containsValue(new Song (songTitle,mobile));
-        return new Song(songTitle,mobile);
-
+        for (Map.Entry<Song, List<User>> e : songLikeMap.entrySet()) {
+            LikedSong.put(e.getKey(),e.getValue().size());
+        }
+        Song songLiked=new Song(mobile,songTitle);
+        max=Collections.max(LikedSong.values());
+        for (Map.Entry<Song, Integer> e : LikedSong.entrySet()) {
+            if(e.getValue()==max){
+                songLiked=e.getKey();
+            }
+        }
+        return songLiked;
     }
-
     public String mostPopularArtist() {
-        if(Artist.getLikes()>artists.lastIndexOf(artists));
-        return "artist"+ Artist.getName();
+        String artistName=null;
+        if (songLiked.getTitle().equalsIgnoreCase(Album.getTitle())){
+            artistName=Album.getArtistname();
+        }
+
+        return artistName;
     }
+
 
     public String mostPopularSong() {
-        songLikeMap.get(1);
-        return "song ";
+
+        return songLiked.getTitle() ;
     }
 }

@@ -9,11 +9,16 @@ public class Playlist {
     private String length;
 
     List<String> songs;
-
-    public Playlist(String title, String mobile, int length){
+    public Playlist(String title,String mobile)  {
         this.title=title;
         this.mobile=mobile;
+    }
 
+
+    public Playlist(String title, String mobile, String length){
+        this.title=title;
+        this.mobile=mobile;
+        this.length=length;
 
     }
     public Playlist(String title,String mobile,List<String> songs){
@@ -21,21 +26,8 @@ public class Playlist {
         this.mobile=mobile;
         songs=new ArrayList<>();
     }
-
-    public Playlist(String title){
-        this.title = title;
-    }
-
-    public Playlist(String mobile, String title) {
-        this.title=title;
-        this.mobile=mobile;
-    }
-
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
 }

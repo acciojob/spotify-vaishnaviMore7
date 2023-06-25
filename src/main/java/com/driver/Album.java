@@ -1,11 +1,16 @@
 package com.driver;
 
 import java.util.Date;
-import java.util.List;
 
 public class Album {
-    private String title;
-    private String Artistname;
+    private static String title;
+
+    public static String getArtistname() {
+        return Artistname;
+    }
+
+
+    private static String Artistname;
     private Date releaseDate;
 
     public Album(String title,String Artistname){
@@ -13,24 +18,10 @@ public class Album {
            this.Artistname=Artistname;
     }
 
-    public Album(String title){
-        this.title = title;
-        this.releaseDate = new Date();
-    }
 
-    public String getTitle() {
+    public static String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
-    public Date getReleaseDate() {
-        return releaseDate;
-    }
-
-    public void setReleaseDate(Date releaseDate) {
-        this.releaseDate = releaseDate;
-    }
 }
